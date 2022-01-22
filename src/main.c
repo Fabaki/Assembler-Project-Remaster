@@ -19,6 +19,10 @@ int main(int argc, char **argv) {
             goto out;
         }
 
+        
+
+        sprintf(msg, "finished assembling file %s...", *argp);
+        log_info(msg);
 out:
         fclose(file);
     }
