@@ -12,13 +12,19 @@ OUTNAME = assembler.exe
 CC = gcc
 CFLAGS = -Wall -ansi -pedantic -I$(INCDIR)
 
-release: $(OBJDIR)/main.o
-	$(CC) $(CFLAGS) $^ -o $(BINDIR)/$(OUTNAME)
-
-debug: $(OBJDIR)/main.o
+debug: $(OBJDIR)/main.o $(OBJDIR)/parser.o $(OBJDIR)/logging.o
 	$(CC) $(CFLAGS) $^ -o $(TESTDIR)/$(OUTNAME)
 
+release: $(OBJDIR)/main.o $(OBJDIR)/parser.o $(OBJDIR)/logging.o
+	$(CC) $(CFLAGS) $^ -o $(BINDIR)/$(OUTNAME)
+
 $(OBJDIR)/main.o: $(SRCDIR)/main.c
+	$(CC) $(CFLAGS) -c $^ -o $@
+
+$(OBJDIR)/parser.o: $(SRCDIR)/parser.c
+	$(CC) $(CFLAGS) -c $^ -o $@
+
+$(OBJDIR)/logging.o: $(SRCDIR)/logging.c
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 clean:
